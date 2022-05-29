@@ -41,6 +41,7 @@ class PostList(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostList, self).get_context_data()
+        context['tags'] = Tag.objects.all()
 
         return context
 
@@ -56,10 +57,12 @@ def show_tag_posts(request, slug):
 
     tag = Tag.objects.get(slug = slug)
     post_list = tag.post_set.all()
+    tags = Tag.objects.all()
 
     context = {
         'tag' : tag,
-        'post_list': post_list
+        'post_list': post_list,
+        'tags' : tags
     }
 
     return render(request, 'wishlist/post_list.html', context)

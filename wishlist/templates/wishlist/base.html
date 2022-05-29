@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 {% load static %}
 <head>
     {% block title %}
@@ -7,6 +7,10 @@
         <link rel="stylesheet" href="{% static 'wishlist/bootstrap/bootstrap.min.css' %}" media="screen">
 
     <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
+
+<style>
+		h1 { text-align: center; }
+</style>
 </head>
 
 <body>
@@ -44,6 +48,8 @@
     <div class="container my-3">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-9 ">
+            </br>
+            </br>
                 {% block main_area %}
 
                 {% endblock %}

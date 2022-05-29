@@ -7,11 +7,9 @@
 {% block main_area %}
     <!-- Post Content Column -->
     <div class="col-lg-8">
-        {% if user.is_authenticated and user == post.author %}
-            <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-dark">위시리스트 수정하기</a>
-        {% endif %}
+
         <!-- Title -->
-        <h1 class="mt-4">{{ post.title }}</h1>
+        <h2 class="mt-4">{{ post.title }}</h2>
 
         <!-- Author -->
         <p class="lead">
@@ -49,6 +47,9 @@
             {% endfor %}
             <br/>
             <br/>
+        {% endif %}
+        {% if user.is_authenticated and user == post.author %}
+            <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-outline-success">위시리스트 수정하기</a>
         {% endif %}
         <br/>
         <br/>
