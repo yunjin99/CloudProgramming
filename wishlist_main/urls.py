@@ -23,6 +23,7 @@ from wishlist import views
 urlpatterns = [
     path('wishlist/', include('wishlist.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', views.PostList.as_view()),
 ]
 
