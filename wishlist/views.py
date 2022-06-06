@@ -20,30 +20,32 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         else :
             raise PermissionDenied
 
-class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = [ 'title', 'content', 'hook_msg', 'head_image', 'tags']
 
-    def test_func(self):
-        return self.request.user.is_superuser or self.request.user.is_staff
+    # def test_func(self):
+    #     return self.request.user.is_superuser or self.request.user.is_staff
 
     def form_valid(self, form):
         current_user = self.request.user
 
-        if current_user.is_authenticated and (current_user.is_staff or current_user.is_superuser):
-            form.instance.author =current_user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
             return super(PostCreate, self).form_valid(form)
         else :
             return redirect('/wishlist')
-class PostList(ListView):
+class PostList(LoginRequiredMixin, ListView):
     model = Post
-    ordering = '-pk'
+    # ordering = '-pk'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PostList, self).get_context_data()
-        context['tags'] = Tag.objects.all()
+        context['tags'] = Tag.objects.filter(author=self.request.user)
+        context['post_list'] = Post.objects.filter(author=self.request.user).order_by('-pk')
 
         return context
+
 
 class PostDetail(DetailView):
     model = Post
@@ -57,7 +59,7 @@ def show_tag_posts(request, slug):
 
     tag = Tag.objects.get(slug = slug)
     post_list = tag.post_set.all()
-    tags = Tag.objects.all()
+    tags = Tag.objects.filter(author = request.user)
 
     context = {
         'tag' : tag,

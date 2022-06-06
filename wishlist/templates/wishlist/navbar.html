@@ -32,7 +32,11 @@
             {#                </ul>#}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link" href="/accounts/logout" >Log Out</a>
+                    {% else %}
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
@@ -51,7 +55,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <a type="button" class="btn btn-outline-dark btn-block btn-sm " href="{% provider_login_url 'google' %}"><i
+                            <a type="button" class="btn btn-outline-dark btn-block btn-sm "
+                               href="{% provider_login_url 'google' %}"><i
                                     class="fab fa-google"></i>&nbsp&nbsp Log in with Google
                             </a>
                             <a type="button" class="btn btn-outline-dark btn-block btn-sm " href="/accounts/login"><i

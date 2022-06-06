@@ -52,6 +52,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
     {% if user.is_authenticated %}
         {% for p in post_list %}
+
             <div class="col">
                 <div class="card h-100">
                     {% if p.head_image %}
@@ -80,6 +81,7 @@
                     </div>
                 </div>
             </div>
+
         {% endfor %}
     {% endif %}
     </div>
