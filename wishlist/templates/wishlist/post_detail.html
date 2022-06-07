@@ -31,14 +31,28 @@
         {% endif %}
         <hr>
 
-        <!-- Post Content -->
-        <p>{{ post.content }}</p>
 
-        {% if post.attached_file %}
-            <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부파일 다운로드</a>
-            {{ post.get_file_name }}
-        {% endif %}
+        <!-- Post Goods link -->
+        <p>링크 : </p><a href="{{ post.link }}"><p>{{ post.link }}</p></a>
         <hr>
+
+        <!-- Post Price -->
+        <p>가격 : {{ post.price }}원</p>
+
+        {#        {% if post.attached_file %}#}
+        {#            <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부파일 다운로드</a>#}
+        {#            {{ post.get_file_name }}#}
+        {#        {% endif %}#}
+
+        <!-- Post Memo -->
+        <p>메모 : {{ post.memo }}</p>
+
+        <!-- Post Need -->
+        <p>필요함 : {{ post.need }}</p>
+
+        <!-- Post Want -->
+        <p>갖고싶음 : {{ post.want }}</p>
+
         {% if post.tags.exists %}
             <br/>
             <i class="fas fa-tags"></i>

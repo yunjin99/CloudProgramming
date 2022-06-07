@@ -1,6 +1,7 @@
 import os.path
 
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 # Create your models here.
@@ -9,7 +10,7 @@ from django.db import models
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
 
@@ -23,12 +24,15 @@ class Tag(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    content = models.TextField()
+    price = models.CharField(max_length=30) # int 값 입력
 
-    hook_msg = models.TextField(blank=True)
+    # hook_msg = models.TextField(blank=True)
 
     head_image = models.ImageField(upload_to='wishlist/images/%Y/%m/%d/', blank=True)
-    # attached_file = models.FileField(upload_to='wishlist/files/%Y/%m/%d/', blank=True)
+    link = models.TextField()
+    memo = models.TextField()
+    need = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    want = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag, blank=True)

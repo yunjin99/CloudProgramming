@@ -10,7 +10,7 @@ from wishlist.models import Post, Tag
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = [ 'title', 'content', 'hook_msg', 'head_image', 'tags']
+    fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
     template_name = "wishlist/post_form_update.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -22,7 +22,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
-    fields = [ 'title', 'content', 'hook_msg', 'head_image', 'tags']
+    fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
 
     # def test_func(self):
     #     return self.request.user.is_superuser or self.request.user.is_staff
