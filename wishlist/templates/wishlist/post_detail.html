@@ -1,5 +1,8 @@
 {% extends 'wishlist/base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% include "django/forms/widgets/input.html" %}
+
 {% block title %}
     <title>위시리스트 - {{ post.title }}</title>
 {% endblock %}
@@ -16,12 +19,10 @@
             by
             <a href="#">{{ post.author }}</a>
         </p>
-
         <hr>
 
         <!-- Date/Time -->
         <p>Posted on {{ post.created_at }}</p>
-
         <hr>
 
 

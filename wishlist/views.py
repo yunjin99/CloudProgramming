@@ -5,7 +5,9 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.views.generic import UpdateView, CreateView, DetailView, ListView
 
+from wishlist.forms import PostForm
 from wishlist.models import Post, Tag
+from wishlist.widgets import StarWidget
 
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
@@ -23,9 +25,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
-
-    # def test_func(self):
-    #     return self.request.user.is_superuser or self.request.user.is_staff
+    # form_class = PostForm
 
     def form_valid(self, form):
         current_user = self.request.user
