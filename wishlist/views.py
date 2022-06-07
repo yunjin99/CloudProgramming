@@ -62,7 +62,7 @@ def purchase_change(request, pk):
     return redirect('/wishlist')
 
 def show_purchase_list(request):
-    post_list = Post.objects.filter(purchase = True).order_by('-pk')
+    post_list = Post.objects.filter(author = request.user, purchase = True).order_by('-pk')
 
     context = {
         'post_list' : post_list
