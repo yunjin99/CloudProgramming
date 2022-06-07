@@ -40,6 +40,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    purchase = models.BooleanField(default=False)
+
     # methods
     # 기본으로 있는 __str__ 메소드를 오버라이드
     def __str__(self):

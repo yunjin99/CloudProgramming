@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
 from django.views.generic import UpdateView, CreateView, DetailView, ListView
@@ -35,6 +35,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
             return super(PostCreate, self).form_valid(form)
         else :
             return redirect('/wishlist')
+
 class PostList(LoginRequiredMixin, ListView):
     model = Post
     # ordering = '-pk'
@@ -46,7 +47,6 @@ class PostList(LoginRequiredMixin, ListView):
 
         return context
 
-
 class PostDetail(DetailView):
     model = Post
 
@@ -55,16 +55,32 @@ class PostDetail(DetailView):
 
         return context
 
+def purchase_change(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.purchase = not post.purchase
+    post.save()
+    return redirect('/wishlist')
+
+def show_purchase_list(request):
+    post_list = Post.objects.filter(purchase = True).order_by('-pk')
+
+    context = {
+        'post_list' : post_list
+    }
+    return render(request, 'wishlist/purchase_list.html', context)
+
 def show_tag_posts(request, slug):
 
     tag = Tag.objects.get(slug = slug)
-    post_list = tag.post_set.all()
+    post_list = tag.post_set.all().order_by('-pk')
     tags = Tag.objects.filter(author = request.user)
 
     context = {
         'tag' : tag,
-        'post_list': post_list,
+        'post_list' : post_list,
         'tags' : tags
     }
 
     return render(request, 'wishlist/post_list.html', context)
+
+
