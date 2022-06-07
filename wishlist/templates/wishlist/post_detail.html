@@ -15,15 +15,15 @@
         <!-- Title -->
         <h2 class="mt-4">{{ post.title }}</h2>
 
-        <!-- Author -->
-        <p class="lead">
-            by
-            <a href="#">{{ post.author }}</a>
-        </p>
-        <hr>
+{#        <!-- Author -->#}
+{#        <p class="lead">#}
+{#            by#}
+{#            <a href="#">{{ post.author }}</a>#}
+{#        </p>#}
+{#        <hr>#}
 
         <!-- Date/Time -->
-        <p>Posted on {{ post.created_at }}</p>
+        <p>{{ post.created_at }}</p>
         <hr>
 
 
@@ -40,6 +40,7 @@
 
         <!-- Post Price -->
         <p>가격 : {{ post.price }}원</p>
+    <hr>
 
         {#        {% if post.attached_file %}#}
         {#            <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부파일 다운로드</a>#}
@@ -47,7 +48,14 @@
         {#        {% endif %}#}
 
         <!-- Post Memo -->
-        <p>메모 : {{ post.memo }}</p>
+        <p>메모 : </p>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-title">{{ post.memo | linebreaks }}</p>
+            </div>
+        </div>
+    <hr>
+
 
         <!-- Post Need -->
         <p>필요함 : {{ post.need }}</p>
