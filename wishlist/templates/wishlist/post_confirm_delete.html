@@ -1,0 +1,16 @@
+{% extends 'wishlist/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>위시리스트 삭제</title>
+{% endblock %}
+
+{% block main_area %}
+    <form action="" method="post">
+     {% csrf_token %}
+     정말 삭제하시겠습니까?
+    <button type="submit" class="btn btn-outline-success float-right">삭제하겠습니다.</button>
+
+    </form>
+
+{% endblock %}

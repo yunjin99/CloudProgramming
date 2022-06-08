@@ -78,7 +78,8 @@
     {% endif %}
     {% if user.is_authenticated and user == post.author %}
 
-        <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-outline-success">위시리스트 수정하기</a>
+        <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-outline-success">수정하기</a>
+        <a href="/wishlist/{{ post.pk }}/delete" class="btn btn-outline-success">삭제하기</a>
 
         {% if post.purchase %}
             <a href="/wishlist/purchase_change/{{ post.pk }}" class="btn btn-success">위시리스트에 다시 추가하기</a>

@@ -3,7 +3,10 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from django.views.generic import UpdateView, CreateView, DetailView, ListView, FormView
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView, CreateView, DetailView, ListView, FormView, DeleteView
+from django.views.generic.detail import SingleObjectTemplateResponseMixin
+from django.views.generic.edit import BaseDeleteView
 
 from wishlist.forms import PostForm, PostByLinkForm
 from wishlist.models import Post, Tag
@@ -37,6 +40,12 @@ class PostCreate(LoginRequiredMixin, CreateView):
             return super(PostCreate, self).form_valid(form)
         else :
             return redirect('/wishlist')
+
+
+class PostDelete(DeleteView):
+    model = Post
+    success_url = '/wishlist'
+
 
 class PostList(LoginRequiredMixin, ListView):
     model = Post
