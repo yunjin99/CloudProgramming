@@ -33,7 +33,7 @@
 
 
     <!-- Post Goods link -->
-    <p>링크 : </p><a href="{{ post.link }}"><p>{{ post.link }}</p></a>
+    <div>링크 : <a href="{{ post.link }}">{{ post.link }}</a></div>
     <hr>
 
     <!-- Post Price -->
@@ -56,13 +56,13 @@
 
 
     <!-- Post Need -->
-    <div>필요함 : {{ post.need }}
+    <div>필요함 :
         <div class="rateit" data-rateit-value="{{ post.need }}" data-rateit-ispreset="true"
              data-rateit-readonly="true"></div>
     </div>
 
     <!-- Post Want -->
-    <div>갖고싶음 : {{ post.want }}
+    <div>갖고싶음 :
         <div class="rateit" data-rateit-value="{{ post.want }}" data-rateit-ispreset="true"
              data-rateit-readonly="true"></div>
     </div>
