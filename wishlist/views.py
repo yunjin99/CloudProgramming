@@ -3,16 +3,17 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 
 # Create your views here.
-from django.views.generic import UpdateView, CreateView, DetailView, ListView
+from django.views.generic import UpdateView, CreateView, DetailView, ListView, FormView
 
-from wishlist.forms import PostForm
+from wishlist.forms import PostForm, PostByLinkForm
 from wishlist.models import Post, Tag
 from wishlist.widgets import StarWidget
 
 
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
+    # fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
+    form_class = PostByLinkForm
     template_name = "wishlist/post_form_update.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -23,9 +24,10 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
             raise PermissionDenied
 
 class PostCreate(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
-    # form_class = PostForm
+    # model = Post
+    # fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
+    form_class = PostByLinkForm
+    template_name = 'wishlist/post_form.html'
 
     def form_valid(self, form):
         current_user = self.request.user

@@ -44,32 +44,44 @@
         {% if user.is_authenticated %}
             {% for p in post_list %}
                 {% if p.purchase == False %}
-                <div class="col">
-                    <div class="card h-100">
-                        {% if p.head_image %}
-                            <img src="{{ p.head_image.url }}" class="card-img-top" alt="Card image cap">
-                        {% else %}
-                            <img class="card-img-top" src="https://picsum.photos/seed/{{ p.pk }}800/200"
-                                 alt="Card image cap">
-                        {% endif %}
-                        <div class="card-body">
-                            <a href="{{ p.get_absolute_url }}"><h4
-                                    class="card-title">{{ p.title | truncatewords_html:30 }}</h4></a>
-                            <p class="card-text">{{ p.price }}원</p>
-
-                            {#                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>#}
-                            {% if p.tags.exists %}
-                                <br/>
-                                <i class="fas fa-tags"></i>
-                                {% for tag in p.tags.iterator %}
-                                    <a href= {{ tag.get_absolute_url }}> {{ tag }}</a>
-                                {% endfor %}
-                                <br/>
-                                <br/>
+                    <div class="col">
+                        <div class="card h-100">
+                            {% if p.head_image %}
+                                <img src="{{ p.head_image.url }}" class="card-img-top" alt="Card image cap">
+                            {% else %}
+                                <img class="card-img-top" src="https://picsum.photos/seed/{{ p.pk }}800/200"
+                                     alt="Card image cap">
                             {% endif %}
+                            <div class="card-body">
+                                <a href="{{ p.get_absolute_url }}"><h4
+                                        class="card-title">{{ p.title | truncatewords_html:30 }}</h4></a>
+                                <p class="card-text">{{ p.price }}원</p>
+
+                                <!-- Post Need -->
+                                <div>필요함
+                                    <div class="rateit" data-rateit-value="{{ p.need }}" data-rateit-ispreset="true"
+                                         data-rateit-readonly="true"></div>
+                                </div>
+
+                                <!-- Post Want -->
+                                <div>갖고싶음
+                                    <div class="rateit" data-rateit-value="{{ p.want }}" data-rateit-ispreset="true"
+                                         data-rateit-readonly="true"></div>
+                                </div>
+
+                                {#                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>#}
+                                {% if p.tags.exists %}
+                                    <br/>
+                                    <i class="fas fa-tags"></i>
+                                    {% for tag in p.tags.iterator %}
+                                        <a href= {{ tag.get_absolute_url }}> {{ tag }}</a>
+                                    {% endfor %}
+                                    <br/>
+                                    <br/>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
             {% endfor %}
         {% endif %}
