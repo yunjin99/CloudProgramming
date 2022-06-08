@@ -1,7 +1,5 @@
 {% extends 'wishlist/base.html' %}
 {% load crispy_forms_tags %}
-{% load static %}
-{% include "django/forms/widgets/input.html" %}
 
 {% block title %}
     <title>위시리스트 - {{ post.title }}</title>
@@ -11,82 +9,88 @@
     <!-- Post Content Column -->
 
 
-    <div class="col-lg-8">
-        <!-- Title -->
-        <h2 class="mt-4">{{ post.title }}</h2>
+    {#    <div class="col-lg-8">#}
+    <!-- Title -->
+    <h2 class="mt-4">{{ post.title }}</h2>
 
-{#        <!-- Author -->#}
-{#        <p class="lead">#}
-{#            by#}
-{#            <a href="#">{{ post.author }}</a>#}
-{#        </p>#}
-{#        <hr>#}
+    {#        <!-- Author -->#}
+    {#        <p class="lead">#}
+    {#            by#}
+    {#            <a href="#">{{ post.author }}</a>#}
+    {#        </p>#}
+    {#        <hr>#}
 
-        <!-- Date/Time -->
-        <p>{{ post.created_at }}</p>
-        <hr>
-
-
-        {% if post.head_image %}
-            <!-- Preview Image -->
-            <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="">
-        {% endif %}
-        <hr>
-
-
-        <!-- Post Goods link -->
-        <p>링크 : </p><a href="{{ post.link }}"><p>{{ post.link }}</p></a>
-        <hr>
-
-        <!-- Post Price -->
-        <p>가격 : {{ post.price }}원</p>
+    <!-- Date/Time -->
+    <p>{{ post.created_at }}</p>
     <hr>
 
-        {#        {% if post.attached_file %}#}
-        {#            <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부파일 다운로드</a>#}
-        {#            {{ post.get_file_name }}#}
-        {#        {% endif %}#}
 
-        <!-- Post Memo -->
-        <p>메모 : </p>
-        <div class="card">
-            <div class="card-body">
-                <p class="card-title">{{ post.memo | linebreaks }}</p>
-            </div>
+    {% if post.head_image %}
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="">
+    {% endif %}
+    <hr>
+
+
+    <!-- Post Goods link -->
+    <p>링크 : </p><a href="{{ post.link }}"><p>{{ post.link }}</p></a>
+    <hr>
+
+    <!-- Post Price -->
+    <p>가격 : {{ post.price }}원</p>
+    <hr>
+
+    {#        {% if post.attached_file %}#}
+    {#            <a href="{{ post.attached_file.url }}" type="button" class="btn btn-outline-dark" download>첨부파일 다운로드</a>#}
+    {#            {{ post.get_file_name }}#}
+    {#        {% endif %}#}
+
+    <!-- Post Memo -->
+    <p>메모 : </p>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-title">{{ post.memo | linebreaks }}</p>
         </div>
+    </div>
     <hr>
 
 
-        <!-- Post Need -->
-        <p>필요함 : {{ post.need }}</p>
-
-        <!-- Post Want -->
-        <p>갖고싶음 : {{ post.want }}</p>
-
-        {% if post.tags.exists %}
-            <br/>
-            <i class="fas fa-tags"></i>
-            {% for tag in post.tags.iterator %}
-                <a href= {{ tag.get_absolute_url }}> {{ tag }}</a>
-            {% endfor %}
-            <br/>
-            <br/>
-        {% endif %}
-        {% if user.is_authenticated and user == post.author %}
-
-            <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-outline-success">위시리스트 수정하기</a>
-
-            {% if post.purchase %}
-                <a href="/wishlist/purchase_change/{{ post.pk }}" class="btn btn-success">위시리스트에 다시 추가하기</a>
-            {% else %}
-                <a href="/wishlist/purchase_change/{{ post.pk }}" class="btn btn-outline-success">구매 완☆</a>
-            {% endif %}
-
-        {% endif %}
-        <br/>
-        <br/>
-        <br/>
-
+    <!-- Post Need -->
+    <div>필요함 : {{ post.need }}
+        <div class="rateit" data-rateit-value="{{ post.need }}" data-rateit-ispreset="true"
+             data-rateit-readonly="true"></div>
     </div>
+
+    <!-- Post Want -->
+    <div>갖고싶음 : {{ post.want }}
+        <div class="rateit" data-rateit-value="{{ post.want }}" data-rateit-ispreset="true"
+             data-rateit-readonly="true"></div>
+    </div>
+
+    {% if post.tags.exists %}
+        <br/>
+        <i class="fas fa-tags"></i>
+        {% for tag in post.tags.iterator %}
+            <a href= {{ tag.get_absolute_url }}> {{ tag }}</a>
+        {% endfor %}
+        <br/>
+        <br/>
+    {% endif %}
+    {% if user.is_authenticated and user == post.author %}
+
+        <a href="/wishlist/update_post/{{ post.pk }}" class="btn btn-outline-success">위시리스트 수정하기</a>
+
+        {% if post.purchase %}
+            <a href="/wishlist/purchase_change/{{ post.pk }}" class="btn btn-success">위시리스트에 다시 추가하기</a>
+        {% else %}
+            <a href="/wishlist/purchase_change/{{ post.pk }}" class="btn btn-outline-success">구매 완☆</a>
+        {% endif %}
+
+    {% endif %}
+    <br/>
+    <br/>
+    <br/>
+
+    {#    </div>#}
 
 {% endblock %}

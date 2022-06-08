@@ -1,6 +1,5 @@
 from django import forms
 
-
 class StarWidget(forms.TextInput):
     input_type = 'rating'
     # template_name = "widgets/star_rate.html"
