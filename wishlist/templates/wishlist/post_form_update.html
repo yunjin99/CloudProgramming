@@ -6,11 +6,39 @@
 {% endblock %}
 
 {% block main_area %}
+    <h4>위시리스트 수정하기</h4>
+    <hr>
+
+    <h2 class="mt-4">{{ post.title }}</h2>
+
+    {#        <!-- Author -->#}
+    {#        <p class="lead">#}
+    {#            by#}
+    {#            <a href="#">{{ post.author }}</a>#}
+    {#        </p>#}
+    {#        <hr>#}
+
+    <!-- Date/Time -->
+    <p>{{ post.created_at }}</p>
+    <hr>
+
+
+    {% if post.head_image %}
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{ post.head_image.url }}" alt="">
+    {% endif %}
+    <hr>
+
+
+    <!-- Post Goods link -->
+    <div>링크 : <a href="{{ post.link }}">{{ post.link }}</a></div>
+    <hr>
+
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         <table>
             {{ form | crispy }}
         </table>
-    <button type="submit" class="btn btn-outline-success float-right">Submit</button>
+        <button type="submit" class="btn btn-outline-success float-right">Submit</button>
 
     </form>
 

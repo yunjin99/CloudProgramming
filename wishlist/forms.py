@@ -26,6 +26,16 @@ class PostByLinkForm(forms.ModelForm):
         }
 
 
+class PostUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['price', 'memo', 'need', 'want']
+        widgets = {
+        'need': StarWidget,
+        'want': StarWidget
+        }
+
+
 class TagForm(forms.ModelForm):
     class Meta:
         model = Tag

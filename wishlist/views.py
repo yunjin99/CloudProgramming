@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView, DetailView, ListView, FormView, DeleteView
 
-from wishlist.forms import PostForm, PostByLinkForm, TagForm
+from wishlist.forms import PostForm, PostByLinkForm, TagForm, PostUpdateForm
 from wishlist.models import Post, Tag
 from wishlist.widgets import StarWidget
 from django.utils.text import slugify
@@ -17,7 +17,7 @@ from django.utils.text import slugify
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     # fields = [ 'link', 'price', 'memo', 'need', 'want', 'tags']
-    form_class = PostByLinkForm
+    form_class = PostUpdateForm
     template_name = "wishlist/post_form_update.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -26,6 +26,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
             return super(PostUpdate, self).dispatch(request, *args, **kwargs)
         else :
             raise PermissionDenied
+
 
 class PostCreate(LoginRequiredMixin, CreateView):
     # model = Post

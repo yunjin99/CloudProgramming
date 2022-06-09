@@ -6,6 +6,8 @@
 {% endblock %}
 
 {% block main_area %}
+    <h4>위시리스트 추가하기</h4>
+    <hr>
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
         <table>
             {{ form | crispy }}
