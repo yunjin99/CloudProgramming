@@ -22,7 +22,7 @@
 
         <div class="card-header">
             <h5>태그</h5>
-            <a href="/wishlist/add_tag" >+ ADD TAG</a>
+            <a href="/wishlist/add_tag">+ ADD TAG</a>
 
         </div>
 
@@ -31,7 +31,8 @@
                 <ul class="nav">
                     {% for t in tags %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ t.get_absolute_url }}">{{ t.name }}</a>
+                            <a class="nav-link active" aria-current="page"
+                               href="{{ t.get_absolute_url }}">{{ t.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -41,7 +42,17 @@
 
     {% if tag %}
         <h5>{{ tag }}</h5>
+        <hr/>
     {% endif %}
+
+    <!-- Sorting Post -->
+    <select id="sort-select" onchange="location = this.value;">
+        <option class="sort-date" value="/">최신순</option>
+        <option class="sort-need" value="?sort=need">필요순</option>
+        <option class="sort-want" value="?sort=want">갖고싶은순</option>
+    </select>
+    <br>
+    <br>
 
 
     <!-- WishList Post -->

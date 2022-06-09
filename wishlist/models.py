@@ -1,3 +1,4 @@
+import datetime
 import os.path
 
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from django.utils.text import slugify
 # Create your models here.
 # from markdown import markdown
 # from markdownx.models import MarkdownxField
+# from wishlist.views import generate_unique_slug
 
 
 class Tag(models.Model):
@@ -22,8 +24,15 @@ class Tag(models.Model):
         return f"/wishlist/tag/{self.slug}"
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.slug = slugify(self.name, allow_unicode=True)
+        self.slug = slugify(self.name, allow_unicode=True) + str(datetime.datetime.now().time())
         super().save(force_insert, force_update, using, update_fields)
+
+        # if self.slug:  # edit
+        #     if slugify(self.title, allow_unicode=True) != self.slug:
+        #         self.slug = generate_unique_slug(Post, self.title)
+        # else:  # create
+        #     self.slug = generate_unique_slug(Post, self.title)
+        # super(Post, self).save(*args, **kwargs)
 
 
 

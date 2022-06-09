@@ -10,7 +10,12 @@
         <table>
             {{ form | crispy }}
         </table>
-    <button type="submit" class="btn btn-outline-success float-right">Submit</button>
+        <label for="selected">Tags</label>
+        <br>
+        {% for tag in tags %}
+            <input id="selected" type="checkbox" name="selected" value="{{ tag.id }}">{{ tag.name }}
+        {% endfor %}
+        <button type="submit" class="btn btn-outline-success float-right">Submit</button>
 
     </form>
 
