@@ -27,20 +27,10 @@ class Tag(models.Model):
         self.slug = slugify(self.name, allow_unicode=True) + str(datetime.datetime.now().time())
         super().save(force_insert, force_update, using, update_fields)
 
-        # if self.slug:  # edit
-        #     if slugify(self.title, allow_unicode=True) != self.slug:
-        #         self.slug = generate_unique_slug(Post, self.title)
-        # else:  # create
-        #     self.slug = generate_unique_slug(Post, self.title)
-        # super(Post, self).save(*args, **kwargs)
-
-
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
     price = models.CharField(max_length=30) # int 값 입력
-
-    # hook_msg = models.TextField(blank=True)
 
     head_image = models.ImageField(upload_to='wishlist/images/%Y/%m/%d/', blank=True)
     link = models.TextField()

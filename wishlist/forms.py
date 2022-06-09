@@ -19,16 +19,12 @@ class PostForm(forms.ModelForm):
 class PostByLinkForm(forms.ModelForm):
     class Meta:
         model = Post
-        # tags = Tag.objects.filter(author = Post.author)
         fields = ['link', 'price', 'memo', 'need', 'want']
         widgets = {
         'need': StarWidget,
         'want': StarWidget
         }
 
-    # def __init__(self, *args, **kwargs):
-    #     super(PostByLinkForm, self).__init__(*args, **kwargs)
-    #     self.fields['tags'] = ModelChoiceField(queryset=Tag.objects.filter(author = ))
 
 class TagForm(forms.ModelForm):
     class Meta:

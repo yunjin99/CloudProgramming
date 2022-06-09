@@ -11,10 +11,8 @@
     </br>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         {% if user.is_authenticated %}
-            {#            {% if user.is_staff or user.is_superuser %}#}
             <a href="/wishlist/create_post" role="button" class="btn btn-outline-success">위시리스트 추가하기 :)</a>
             <a href="/wishlist/purchased_item" role="button" class="btn btn-outline-success">구매 목록</a>
-            {#            {% endif %}#}
         {% endif %}
     </div>
 
@@ -85,7 +83,6 @@
                                          data-rateit-readonly="true"></div>
                                 </div>
 
-                                {#                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>#}
                                 {% if p.tags.exists %}
                                     <br/>
                                     <i class="fas fa-tags"></i>
