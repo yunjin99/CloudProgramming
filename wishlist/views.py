@@ -1,3 +1,5 @@
+import requests
+from bs4 import BeautifulSoup
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
@@ -5,10 +7,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 # Create your views here.
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView, DetailView, ListView, FormView, DeleteView
-from django.views.generic.detail import SingleObjectTemplateResponseMixin
-from django.views.generic.edit import BaseDeleteView
 
-from wishlist.forms import PostForm, PostByLinkForm
+from wishlist.forms import PostForm, PostByLinkForm, TagForm
 from wishlist.models import Post, Tag
 from wishlist.widgets import StarWidget
 
@@ -32,8 +32,22 @@ class PostCreate(LoginRequiredMixin, CreateView):
     form_class = PostByLinkForm
     template_name = 'wishlist/post_form.html'
 
+
     def form_valid(self, form):
         current_user = self.request.user
+
+        post = form.save(commit=False)
+        url_receive = post.link
+
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+        data = requests.get(url_receive, headers=headers)
+        soup = BeautifulSoup(data.text, 'html.parser')
+
+        print(soup.select_one('meta[property="og:title"]')['content'])
+        post.title = soup.select_one('meta[property="og:title"]')['content']
+        post.head_image = soup.select_one('meta[property="og:image"]')['content']
+        post.save()
 
         if current_user.is_authenticated:
             form.instance.author = current_user
@@ -94,4 +108,19 @@ def show_tag_posts(request, slug):
 
     return render(request, 'wishlist/post_list.html', context)
 
+class TagCreate(LoginRequiredMixin, CreateView):
+    form_class = TagForm
+    template_name = 'wishlist/tag_form.html'
 
+    def form_valid(self, form):
+        current_user = self.request.user
+
+        tag = form.save(commit=False)
+        tag.author = current_user
+        tag.save()
+
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(TagCreate, self).form_valid(form)
+        else :
+            return redirect('/wishlist')

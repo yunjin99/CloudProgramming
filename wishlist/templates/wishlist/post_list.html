@@ -19,14 +19,19 @@
     </div>
 
     <div class="card my-4">
-        <h5 class="card-header">태그</h5>
+
+        <div class="card-header">
+            <h5>태그</h5>
+            <a href="/wishlist/add_tag" >+ ADD TAG</a>
+
+        </div>
+
         <div class="card-body">
             {% if user.is_authenticated %}
                 <ul class="nav">
                     {% for t in tags %}
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ t.get_absolute_url }}">{{ t.name }}
-                                ({{ t.post_set.count }})</a>
+                            <a class="nav-link active" aria-current="page" href="{{ t.get_absolute_url }}">{{ t.name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
@@ -53,8 +58,8 @@
                                      alt="Card image cap">
                             {% endif %}
                             <div class="card-body">
-                                <a href="{{ p.get_absolute_url }}"><h4
-                                        class="card-title">{{ p.title | truncatewords_html:30 }}</h4></a>
+                                <a href="{{ p.get_absolute_url }}"><h5
+                                        class="card-title">{{ p.title | truncatewords_html:10 }}</h5></a>
                                 <p class="card-text">{{ p.price }}원</p>
 
                                 <!-- Post Need -->

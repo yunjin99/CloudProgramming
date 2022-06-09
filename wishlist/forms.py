@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Post, Tag
 from .widgets import StarWidget
 
 
@@ -22,3 +22,8 @@ class PostByLinkForm(forms.ModelForm):
         'need': StarWidget,
         'want': StarWidget
     }
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ['name']
