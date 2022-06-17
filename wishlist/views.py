@@ -79,12 +79,34 @@ class PostList(LoginRequiredMixin, ListView):
     model = Post
     # ordering = '-pk'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(PostList, self).get_context_data()
-        context['tags'] = Tag.objects.filter(author=self.request.user)
-        context['post_list'] = Post.objects.filter(author=self.request.user).order_by('-pk')
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super(PostList, self).get_context_data()
+    #     context['tags'] = Tag.objects.filter(author=self.request.user)
+    #     context['post_list'] = Post.objects.filter(author=self.request.user).order_by('-pk')
+    #
+    #     return context
 
-        return context
+    def get(self, request, *args, **kwargs):
+        sort = request.GET.get('sort', '')
+        # print(sort)
+        tags = Tag.objects.filter(author=self.request.user)
+
+        if sort == 'l_price':
+            posts = Post.objects.filter(author=request.user).order_by('price', '-pk')
+            return render(request, 'wishlist/post_list.html', {'post_list': posts, 'tags': tags, 'sort' : sort})
+        elif sort == 'h_price':
+            posts = Post.objects.filter(author=request.user).order_by('-price', '-pk')
+            return render(request, 'wishlist/post_list.html', {'post_list': posts, 'tags': tags, 'sort' : sort})
+        elif sort == 'need':
+            posts = Post.objects.filter(author=request.user).order_by('-need', '-pk')
+            return render(request, 'wishlist/post_list.html', {'post_list': posts, 'tags': tags, 'sort' : sort})
+        elif sort == 'want':
+            posts = Post.objects.filter(author=request.user).order_by('-want', '-pk')
+            return render(request, 'wishlist/post_list.html', {'post_list': posts, 'tags': tags, 'sort' : sort})
+        else:
+            posts = Post.objects.filter(author=request.user).order_by('-pk')
+            return render(request, 'wishlist/post_list.html', {'post_list': posts, 'tags': tags, 'sort' : sort})
+
 
 class PostDetail(DetailView):
     model = Post
@@ -138,19 +160,3 @@ class TagCreate(LoginRequiredMixin, CreateView):
             return super(TagCreate, self).form_valid(form)
         else :
             return redirect('/wishlist')
-
-
-
-# def sort_post(request):
-#     sort = request.GET.get('sort', '')
-#
-#     if sort == 'need':
-#         posts = Post.objects.order_by('-need', '-pk')
-#         return render(request, 'wishlist/post_list.html', {'post_list': posts})
-#     # elif sort == 'want':
-#     #     user = request.user
-#     #     memos = Memos.objects.filter(name_id=user).order_by('-update_date')  # 복수를 가져올수 있음
-#     #     return render(request, 'memo_app/index.html', {'memos': memos})
-#     # else:
-#     #     posts = Post.objects.filter(author = request.user).order_by('-pk')
-#     #     return render(request, 'memo_app/index.html', {'memos': memos})

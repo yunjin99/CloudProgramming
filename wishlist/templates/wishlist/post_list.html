@@ -41,16 +41,19 @@
     {% if tag %}
         <h5>{{ tag }}</h5>
         <hr/>
+    {% else %}
+        <!-- Sorting Post -->
+        <form method="get" class="form">
+            <select name="sort-select" id="sort-select" onchange="location = this.value;">
+                <option class="sort-date" value="/">최신순</option>
+                <option class="sort-l_price" value="?sort=l_price" {% if sort == "l_price" %} selected {% endif %}>낮은가격순</option>
+                <option class="sort-h_price" value="?sort=h_price" {% if sort == "h_price" %} selected {% endif %}>높은가격순</option>
+                <option class="sort-need" value="?sort=need" {% if sort == "need" %} selected {% endif %}>필요순</option>
+                <option class="sort-want" value="?sort=want" {% if sort == "want" %} selected {% endif %}>갖고싶은순</option>
+            </select>
+        </form>
+        <br>
     {% endif %}
-
-    <!-- Sorting Post -->
-    <select id="sort-select" onchange="location = this.value;">
-        <option class="sort-date" value="/">최신순</option>
-        <option class="sort-need" value="?sort=need">필요순</option>
-        <option class="sort-want" value="?sort=want">갖고싶은순</option>
-    </select>
-    <br>
-    <br>
 
 
     <!-- WishList Post -->
@@ -101,20 +104,5 @@
     </div>
 
     <br/>
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
+
 {% endblock %}
