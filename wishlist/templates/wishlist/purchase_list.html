@@ -21,7 +21,7 @@
                 <div class="col">
                     <div class="card h-100">
                         {% if p.head_image %}
-                            <img src="{{ p.head_image.url }}" class="card-img-top" alt="Card image cap">
+                            <img src="{{ p.head_image }}" class="card-img-top" alt="Card image cap">
                         {% else %}
                             <img class="card-img-top" src="https://picsum.photos/seed/{{ p.pk }}800/200"
                                  alt="Card image cap">
@@ -62,20 +62,5 @@
     </div>
 
     <br/>
-    <!-- Pagination -->
-    <ul class="pagination justify-content-center mb-4">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
+
 {% endblock %}
