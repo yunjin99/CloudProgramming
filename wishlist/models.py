@@ -29,7 +29,7 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=500)
     price = models.IntegerField() # int 값 입력
 
     head_image = models.ImageField(upload_to='wishlist/images/', blank=True)
