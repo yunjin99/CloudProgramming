@@ -9,5 +9,9 @@
 > 합리적이고 만족스러운 소비를 위한 WishList
 
 ---
+### 사이트 URL
+https://wishlist.ktpaasta-v4.kr
+#### -> ID : user1 PW : useruser 또는 email로 sign up
+---
 ### Flow Diagram
 ![flowdiagram](https://user-images.githubusercontent.com/60458457/170222714-b1193561-4b4f-439e-8cc6-e51681423e98.jpg)
