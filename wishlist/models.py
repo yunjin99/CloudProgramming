@@ -29,10 +29,10 @@ class Tag(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=500)
+    title = models.TextField()
     price = models.IntegerField() # int 값 입력
 
-    head_image = models.ImageField(upload_to='wishlist/images/', blank=True)
+    head_image = models.ImageField(upload_to='wishlist/images/', blank=True, max_length=255)
     link = models.TextField()
     memo = models.TextField()
     need = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
